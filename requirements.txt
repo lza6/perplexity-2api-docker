@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+httpx[http2]
+pydantic-settings
+python-dotenv
+loguru
+playwright
