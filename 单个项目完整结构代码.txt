@@ -1,0 +1,1475 @@
+项目 'perplexity-2api' 的结构树:
+📂 perplexity-2api/
+    📄 .env
+    📄 .env.example
+    📄 Dockerfile
+    📄 config_wizard.py
+    📄 docker-compose.yml
+    📄 main.py
+    📄 nginx.conf
+    📄 requirements.txt
+    📂 app/
+        📄 __init__.py
+        📂 core/
+            📄 __init__.py
+            📄 config.py
+        📂 providers/
+            📄 __init__.py
+            📄 base_provider.py
+            📄 perplexity_provider.py
+        📂 services/
+            📄 __init__.py
+            📄 browser_service.py
+            📄 turnstile_solver.py
+        📂 utils/
+            📄 __init__.py
+            📄 sse_utils.py
+    📂 debug/
+    📂 static/
+        📄 index.html
+        📄 script.js
+        📄 style.css
+================================================================================
+
+--- 文件路径: .env ---
+
+# ====================================================================
+# perplexity-2api 生产环境配置 (Auto-Renew Edition v2.1.1)
+# ====================================================================
+
+# --- 核心安全配置 ---
+API_MASTER_KEY=1
+
+# --- 端口配置 ---
+NGINX_PORT=8091
+
+# --- FlareSolverr 配置 ---
+FLARESOLVERR_URL=http://flaresolverr:8191/v1
+
+# --- Perplexity 初始凭证 (来自 2025-12-04 最新抓包) ---
+PPLX_COOKIE="pplx.visitor-id=f19d46a9-a017-43e0-b5ea-74f062b54c21; _gcl_au=1.1.1954594475.1759810447; _fbp=fb.1.1759810530992.316158508312651898; __ps_r=_; __ps_lu=https://www.perplexity.ai/?login-source=floatingSignup&login-new=false&__cf_chl_tk=IMq5WQus75WAgXQcNl2nNq8FZxXQIS2myr1SXJCdSE4-1759810513-1.0.1.1-JztOubQObWd1Wk3eA.Q.rKxAp.fqHZJevmEkxoU9G0o; __ps_fva=1759810531078; pplx.personal-search-badge-seen={%22sidebar%22:true%2C%22settingsSidebar%22:false%2C%22personalize%22:false}; sidebar-upgrade-badge=10; __stripe_mid=0d7e06d6-c463-4dab-9809-6516262c0278e60afc; gov-badge=3; sidebarHiddenHubs=[%22SIDEBAR_FINANCE%22%2C%22SIDEBAR_SHOPPING%22%2C%22SIDEBAR_TRAVEL%22%2C%22SIDEBAR_ACADEMIC%22%2C%22SIDEBAR_SPORTS%22]; pplx.search-mode=search; intercom-id-l2wyozh0=21ac64b7-10ef-4d87-85d0-1ef6718519cb; intercom-device-id-l2wyozh0=1bd11f99-1f00-4c35-9ada-aa496322b14b; pplx.tasks-settings-seen=true; next-auth.csrf-token=77aa78e481f5efed54fab60290436aa7c951dda6e58ec1caac246c69d00b04b2%7Ca763a93d7d381ba2701cfec801e5b9386fb9106f2383214ad873b9489ccdad0c; __cflb=02DiuDyvFMmK5p9jVbVnMNSKYZhUL9aGkutBirkbrKfKz; cf_clearance=8UKvc.xp0Bl2d2Y1oScsb6jOmto39g4urTKMUlGULvk-1764858937-1.2.1.1-rwsiVZkx9R_HidVb_dAF59JZSxXX0TiIvuqobAIjHesm7AA70p43vfLwURbcwDY5e80U9ehm0LUQWCegQ2Eu6hJPKCu1kvRwn8u70bcGPLpBS31JFqlh8PEq8GLxx.VZ3Sby7mqeKX1W6reA15kQNpnQI.ZgRoH.MWz.LXdDLB0.NQ2QeJ_bYHXJnzsx3Vs4diTDm72ASwI59j9Gg0j8fnLtAnGngmS9OsOSQXeDJY.nvWd41bQzcvBqYqrizGFm; next-auth.callback-url=https%3A%2F%2Fwww.perplexity.ai%2Fapi%2Fauth%2Fsignin-callback%3Fredirect%3Dhttps%253A%252F%252Fwww.perplexity.ai; __ps_sr=_; __ps_slu=https://www.perplexity.ai/?__cf_chl_tk=jliUiHSthfgj48AP.Y_FGn9vlbYd9lH0us7XpnYtPpE-1764858908-1.0.1.1-Y6KMzjEQbrTC5qTUVIkwnYpgitHQ5Ndlqf2QklKPVTo; _rdt_uuid=1759810529827.99d9de3f-9d8a-4b86-b14e-9804440441e3; _rdt_em=:f11abad7c389ca471ed98ab997abd73d175f417f0d196e17fd7c9f760a181cbc; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..qNZHIGuv9BNLERQB.4z3966y3gzGniQrYpLpyR4yWscnWcZ271uZk6UD0Y2oRI5lUNf0fUOWtx1pALi-opRos2Wv0R5j6Qv5LwWEnT4Pgsek5hCL8R1a3H7AdP_SyC88zz9OHaExBeodvzEpBo_xvI8Zx_eBMKLXi1jzBAIRZj_AYqqnrG0D5mq_Iy9NkxXtl5iqWF85u1DgBM3-FcRR51o0BsQfvI6By-e-Z2glvq4K3cP3bY1GxdT-40v1GPMchSka91BfTVHaRmh4nHGLECKNYXtobfB4Bq7Z3ooZWdoKDxKxMOIebq620RJ_8tfk16RNKstKiRmHdZkPSuFyenSIBXlkJqkvpgW6bSqhmSmdnLPDsatq7Yj9uBmZKYk6vrC4ZaU_1Glry8yLYy80X4yyq0F0isITNpye5_F60m6t4vn-fJRfJcY0TA5U.BV7Mijodw4s_YoI3qk41zA; __cf_bm=HQEcF.QOMAyCsD9olGoY_BMs0ELpcwrFD5qNhXO8URU-1764863864-1.0.1.1-3wuX_4g0ea.XGIkVuE_tihNmjysF_fhCA3G.Fho3InewiI_hMuG8Sx1M_j83jH6_CGuJuibdIaWUbi9LqWX2bIfWeNynRrhbJTPCzcjUkus; _dd_s=aid=080284c5-5b0d-4275-bec6-69adab4f424c&rum=2&id=1c54022d-4788-430a-8ecc-60c908e7b598&created=1764860389940&expire=1764861318615&logs=0; pplx.session-id=563696b6-5457-474c-a576-ffe9bf601bf8; pplx.metadata={%22qc%22:177%2C%22qcu%22:0%2C%22qcm%22:0%2C%22qcc%22:0%2C%22qcco%22:0%2C%22qccol%22:0%2C%22qcdr%22:18%2C%22qcs%22:0%2C%22qcd%22:0%2C%22hli%22:true%2C%22hcga%22:true%2C%22hcds%22:false%2C%22hso%22:false%2C%22hfo%22:false%2C%22hsco%22:false%2C%22hfco%22:false%2C%22hsma%22:false%2C%22hdc%22:true%2C%22fqa%22:1759881337545%2C%22lqa%22:1764860396155}"
+
+# --- 必须与抓包一致的 User-Agent ---
+PPLX_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+
+
+--- 文件路径: .env.example ---
+
+# API 访问密钥
+API_MASTER_KEY=1
+
+# 服务端口
+NGINX_PORT=8091
+
+# FlareSolverr 地址 (通常无需修改)
+FLARESOLVERR_URL=http://flaresolverr:8191/v1
+
+# --- 以下内容请使用 config_wizard.py 自动填充 ---
+PPLX_COOKIE=
+PPLX_USER_AGENT=
+
+--- 文件路径: Dockerfile ---
+
+FROM python:3.10-slim
+
+# 设置环境变量
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+# 设置 Playwright 浏览器路径
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
+WORKDIR /app
+
+# 1. 安装系统基础依赖
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. 安装 Python 依赖
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# 3. 安装 Playwright 浏览器和系统依赖
+# 这一步会下载 Chromium 并安装所需的 Linux 库
+RUN playwright install --with-deps chromium
+
+# 4. 复制应用代码
+COPY . .
+
+# 5. 创建用户并授权
+RUN useradd --create-home appuser && \
+    mkdir -p /app/debug && \
+    chown -R appuser:appuser /app && \
+    chown -R appuser:appuser /ms-playwright
+
+USER appuser
+
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+
+--- 文件路径: config_wizard.py ---
+
+import json
+import os
+import tkinter as tk
+from tkinter import filedialog, messagebox, ttk, scrolledtext
+import re
+
+class ConfigWizardApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Perplexity-2API 智能配置向导 v4.0 (全能版)")
+        self.root.geometry("800x650")
+        
+        # 样式设置
+        style = ttk.Style()
+        style.configure("TButton", font=("Microsoft YaHei", 10), padding=5)
+        style.configure("TLabel", font=("Microsoft YaHei", 10))
+        style.configure("Header.TLabel", font=("Microsoft YaHei", 16, "bold"), foreground="#2563eb")
+        style.configure("Info.TLabel", font=("Microsoft YaHei", 9), foreground="#666")
+        
+        # --- 标题区 ---
+        header_frame = ttk.Frame(root, padding="20 20 10 10")
+        header_frame.pack(fill=tk.X)
+        ttk.Label(header_frame, text="🔧 Perplexity-2API 配置控制台", style="Header.TLabel").pack(anchor=tk.W)
+        
+        # --- 说明区 ---
+        info_frame = ttk.LabelFrame(root, text="ℹ️ 支持的数据格式", padding="15")
+        info_frame.pack(fill=tk.X, padx=20, pady=5)
+        
+        info_text = (
+            "本工具支持从以下任意格式中提取凭证：\n"
+            "1. HAR 文件 (JSON)\n"
+            "2. PowerShell 脚本 (Invoke-WebRequest)\n"
+            "3. cURL 命令\n"
+            "4. 任意包含 Cookie 的文本片段"
+        )
+        ttk.Label(info_frame, text=info_text, style="Info.TLabel", justify=tk.LEFT).pack(anchor=tk.W)
+
+        # --- 选项卡区 ---
+        self.notebook = ttk.Notebook(root)
+        self.notebook.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
+
+        # Tab 1: 文本粘贴 (推荐)
+        self.tab_paste = ttk.Frame(self.notebook, padding=15)
+        self.notebook.add(self.tab_paste, text="📋 粘贴任意内容 (推荐)")
+        self.setup_paste_tab()
+
+        # Tab 2: 文件导入
+        self.tab_file = ttk.Frame(self.notebook, padding=15)
+        self.notebook.add(self.tab_file, text="📂 导入 HAR 文件")
+        self.setup_file_tab()
+
+        # --- 底部状态区 ---
+        self.status_frame = ttk.Frame(root, padding="20")
+        self.status_frame.pack(fill=tk.X, side=tk.BOTTOM)
+        
+        self.status_label = ttk.Label(self.status_frame, text="就绪", foreground="#888")
+        self.status_label.pack(side=tk.LEFT)
+        
+        self.write_btn = ttk.Button(self.status_frame, text="写入配置到 .env", command=self.write_to_env, state=tk.DISABLED)
+        self.write_btn.pack(side=tk.RIGHT)
+
+        # 数据存储
+        self.extracted_cookie = None
+        self.extracted_ua = None
+
+    def setup_file_tab(self):
+        frame = ttk.Frame(self.tab_file)
+        frame.pack(fill=tk.X, pady=20)
+        self.har_path_var = tk.StringVar()
+        ttk.Entry(frame, textvariable=self.har_path_var, width=50).pack(side=tk.LEFT, padx=(0, 10), fill=tk.X, expand=True)
+        ttk.Button(frame, text="浏览文件...", command=self.browse_har).pack(side=tk.LEFT)
+
+    def setup_paste_tab(self):
+        ttk.Label(self.tab_paste, text="请在此处粘贴内容 (Ctrl+V)：").pack(anchor=tk.W, pady=(0, 5))
+        self.paste_text = scrolledtext.ScrolledText(self.tab_paste, height=10, font=("Consolas", 9))
+        self.paste_text.pack(fill=tk.BOTH, expand=True)
+        
+        btn_frame = ttk.Frame(self.tab_paste, padding="0 10 0 0")
+        btn_frame.pack(fill=tk.X)
+        ttk.Button(btn_frame, text="智能解析", command=self.parse_paste_content).pack(side=tk.RIGHT)
+
+    def browse_har(self):
+        filename = filedialog.askopenfilename(title="选择 HAR 文件", filetypes=[("HTTP Archive", "*.har"), ("All Files", "*.*")])
+        if filename:
+            self.har_path_var.set(filename)
+            try:
+                with open(filename, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read() # 直接读取为文本
+                self.process_text_content(content)
+            except Exception as e:
+                messagebox.showerror("错误", f"读取文件失败: {str(e)}")
+
+    def parse_paste_content(self):
+        content = self.paste_text.get("1.0", tk.END).strip()
+        if not content:
+            messagebox.showwarning("提示", "请先粘贴内容")
+            return
+        self.process_text_content(content)
+
+    def process_text_content(self, text):
+        """
+        全能解析逻辑：尝试 JSON 解析，如果失败则使用正则暴力提取
+        """
+        self.status_label.config(text="正在分析...", foreground="blue")
+        self.root.update()
+
+        cookie = ""
+        ua = ""
+
+        # 1. 尝试作为 JSON 解析 (HAR 格式)
+        try:
+            json_data = json.loads(text)
+            cookie, ua = self.extract_from_json(json_data)
+        except:
+            pass # 不是 JSON，继续尝试其他方法
+
+        # 2. 如果 JSON 没提取到，尝试 PowerShell 格式
+        if not cookie:
+            cookie = self.extract_from_powershell(text)
+        
+        # 3. 如果还没提取到，尝试通用正则 (Key=Value 格式)
+        if not cookie:
+            cookie = self.extract_from_regex(text)
+
+        # 4. 提取 UA (如果还没找到)
+        if not ua:
+            ua = self.extract_ua_regex(text)
+
+        # 5. 结果处理
+        if cookie:
+            # 清洗
+            cookie = cookie.strip().strip('"').strip("'")
+            if not ua:
+                ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+            
+            self.extracted_cookie = cookie
+            self.extracted_ua = ua
+            
+            preview = cookie[:40] + "..." + cookie[-40:] if len(cookie) > 80 else cookie
+            self.status_label.config(text=f"✅ 提取成功! (长度: {len(cookie)})", foreground="green")
+            
+            msg = (
+                f"成功提取凭证！\n\n"
+                f"User-Agent: {ua[:30]}...\n"
+                f"Cookie: {preview}\n\n"
+                f"点击【写入配置】保存。"
+            )
+            messagebox.showinfo("解析成功", msg)
+            self.write_btn.config(state=tk.NORMAL)
+        else:
+            self.status_label.config(text="❌ 未能识别有效凭证", foreground="red")
+            messagebox.showerror("解析失败", "未能从文本中提取到有效的 Perplexity Cookie。\n请确保内容包含 'pplx.visitor-id' 或 'session-token'。")
+
+    def extract_from_json(self, data):
+        """递归遍历 JSON 寻找 Cookie"""
+        candidates = []
+        
+        def recursive_search(obj):
+            if isinstance(obj, dict):
+                if 'name' in obj and 'value' in obj:
+                    if str(obj['name']).lower() == 'cookie':
+                        candidates.append(obj['value'])
+                    elif str(obj['name']).lower() == 'user-agent':
+                        self.extracted_ua = obj['value']
+                
+                for key, value in obj.items():
+                    recursive_search(value)
+            elif isinstance(obj, list):
+                for item in obj:
+                    recursive_search(item)
+
+        recursive_search(data)
+        
+        # 筛选最佳 Cookie
+        best_cookie = ""
+        for c in candidates:
+            if "session-token" in c:
+                return c, self.extracted_ua
+            if len(c) > len(best_cookie):
+                best_cookie = c
+        
+        return best_cookie, self.extracted_ua
+
+    def extract_from_powershell(self, text):
+        """从 PowerShell 脚本中提取 Cookie"""
+        # 匹配 $session.Cookies.Add((New-Object System.Net.Cookie("KEY", "VALUE", ...)))
+        pattern = r'New-Object System\.Net\.Cookie\("([^"]+)",\s*"([^"]+)"'
+        matches = re.findall(pattern, text)
+        
+        if matches:
+            cookie_parts = []
+            for key, value in matches:
+                cookie_parts.append(f"{key}={value}")
+            return "; ".join(cookie_parts)
+        return ""
+
+    def extract_from_regex(self, text):
+        """通用正则提取"""
+        # 尝试匹配整个 Cookie 字符串 (通常在 cURL 或 Raw Header 中)
+        # 寻找包含 pplx.visitor-id 的长字符串
+        lines = text.splitlines()
+        for line in lines:
+            if "pplx.visitor-id" in line and "=" in line:
+                # 尝试提取 key=value; key=value 格式
+                # 简单的启发式：如果行里有 Cookie: 前缀，去掉它
+                if "Cookie:" in line:
+                    return line.split("Cookie:", 1)[1].strip()
+                # 否则，如果这行看起来像 cookie 字符串
+                if ";" in line and "=" in line:
+                    return line.strip()
+        return ""
+
+    def extract_ua_regex(self, text):
+        """提取 User-Agent"""
+        # 匹配 User-Agent: ...
+        match = re.search(r'User-Agent["\']?\s*[:=]\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE)
+        if match:
+            return match.group(1).strip()
+        # 匹配 PowerShell 的 $session.UserAgent = "..."
+        match = re.search(r'\$session\.UserAgent\s*=\s*"([^"]+)"', text)
+        if match:
+            return match.group(1).strip()
+        return ""
+
+    def write_to_env(self):
+        env_path = os.path.join(os.getcwd(), '.env')
+        
+        default_lines = [
+            "API_MASTER_KEY=1\n",
+            "NGINX_PORT=8091\n",
+            "FLARESOLVERR_URL=http://flaresolverr:8191/v1\n"
+        ]
+
+        if os.path.exists(env_path):
+            with open(env_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+        else:
+            lines = default_lines
+
+        new_lines = []
+        cookie_written = False
+        ua_written = False
+
+        for line in lines:
+            if line.strip().startswith("PPLX_COOKIE="):
+                new_lines.append(f'PPLX_COOKIE="{self.extracted_cookie}"\n')
+                cookie_written = True
+            elif line.strip().startswith("PPLX_USER_AGENT="):
+                new_lines.append(f'PPLX_USER_AGENT="{self.extracted_ua}"\n')
+                ua_written = True
+            else:
+                new_lines.append(line)
+        
+        if not cookie_written:
+            new_lines.append(f'PPLX_COOKIE="{self.extracted_cookie}"\n')
+        if not ua_written:
+            new_lines.append(f'PPLX_USER_AGENT="{self.extracted_ua}"\n')
+
+        try:
+            with open(env_path, 'w', encoding='utf-8') as f:
+                f.writelines(new_lines)
+            
+            messagebox.showinfo("写入成功", "✅ 配置已更新！\n\n请务必执行以下命令重启服务：\ndocker-compose restart app")
+            self.root.destroy()
+        except Exception as e:
+            messagebox.showerror("写入失败", f"无法写入 .env 文件: {str(e)}")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = ConfigWizardApp(root)
+    root.mainloop()
+
+--- 文件路径: docker-compose.yml ---
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: perplexity-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./debug:/app/debug
+      # [关键] 挂载 .env 文件
+      - ./.env:/app/.env
+    networks:
+      - pplx-net
+
+  nginx:
+    image: nginx:latest
+    container_name: perplexity-nginx
+    restart: always
+    ports:
+      - "${NGINX_PORT:-8091}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    networks:
+      - pplx-net
+
+networks:
+  pplx-net:
+    driver: bridge
+
+--- 文件路径: main.py ---
+
+import logging
+import sys
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, Request, Depends, Header, HTTPException
+from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from loguru import logger
+
+from app.core.config import settings
+from app.providers.perplexity_provider import PerplexityProvider
+
+# [修改] 设置日志级别为 DEBUG，格式包含文件名和行号
+logger.remove()
+logger.add(
+    sys.stdout, 
+    level="DEBUG", 
+    format="<green>{time:HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+)
+
+provider = PerplexityProvider()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info(f"启动 {settings.APP_NAME} v{settings.APP_VERSION} (Deep Debug Mode)...")
+    logger.info("正在初始化 Playwright 浏览器服务...")
+    try:
+        await provider.solver.initialize_session()
+    except Exception as e:
+        logger.error(f"初始化失败: {e}")
+    yield
+    logger.info("服务关闭。")
+
+app = FastAPI(title=settings.APP_NAME, lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+async def verify_key(authorization: str = Header(None)):
+    if settings.API_MASTER_KEY != "1":
+        if not authorization or authorization.split(" ")[1] != settings.API_MASTER_KEY:
+            raise HTTPException(403, "Invalid API Key")
+
+@app.post("/v1/chat/completions", dependencies=[Depends(verify_key)])
+async def chat(request: Request):
+    try:
+        data = await request.json()
+        # [新增] 打印客户端原始请求
+        logger.debug(f"收到客户端请求: {data}")
+        return await provider.chat_completion(data)
+    except Exception as e:
+        logger.error(f"Request Error: {e}")
+        raise HTTPException(500, str(e))
+
+@app.get("/v1/models")
+async def models():
+    return await provider.get_models()
+
+@app.get("/", response_class=HTMLResponse)
+async def ui():
+    with open("static/index.html", "r", encoding="utf-8") as f:
+        return f.read()
+
+--- 文件路径: nginx.conf ---
+
+worker_processes auto;
+events { worker_connections 1024; }
+http {
+    upstream backend { server app:8000; }
+    server {
+        listen 80;
+        server_name localhost;
+        location / {
+            proxy_pass http://backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_buffering off;
+            proxy_cache off;
+            proxy_read_timeout 300s;
+        }
+    }
+}
+
+--- 文件路径: requirements.txt ---
+
+fastapi
+uvicorn[standard]
+httpx[http2]
+pydantic-settings
+python-dotenv
+loguru
+playwright
+
+--- 文件路径: app\__init__.py ---
+
+
+
+--- 文件路径: app\core\__init__.py ---
+
+
+
+--- 文件路径: app\core\config.py ---
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import List, Dict
+import os
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    APP_NAME: str = "perplexity-2api"
+    APP_VERSION: str = "2.2.0"
+    API_MASTER_KEY: str = "1"
+    NGINX_PORT: int = 8091
+    
+    FLARESOLVERR_URL: str = "http://localhost:8191/v1"
+    TARGET_URL: str = "https://www.perplexity.ai"
+    API_URL: str = "https://www.perplexity.ai/rest/sse/perplexity_ask"
+
+    # 从 .env 读取
+    PPLX_COOKIE: str = ""
+    PPLX_USER_AGENT: str = ""
+
+    MODELS: List[str] = [
+        "gemini30pro", 
+        "gpt-4o",
+        "claude-3-opus",
+        "sonar-reasoning-pro",
+        "sonar-pro"
+    ]
+    DEFAULT_MODEL: str = "gemini30pro"
+
+    def get_initial_cookies_dict(self) -> List[Dict[str, str]]:
+        """解析 Cookie 字符串"""
+        cookies = []
+        raw_cookie = self.PPLX_COOKIE
+        
+        if not raw_cookie:
+            return cookies
+        
+        # 清洗：去除可能存在的首尾引号（如果 .env 解析器没处理的话）
+        if raw_cookie.startswith('"') and raw_cookie.endswith('"'):
+            raw_cookie = raw_cookie[1:-1]
+        
+        for item in raw_cookie.split(';'):
+            if '=' in item:
+                name, value = item.strip().split('=', 1)
+                if name and value:
+                    cookies.append({
+                        "name": name,
+                        "value": value,
+                        "url": self.TARGET_URL
+                    })
+        return cookies
+
+settings = Settings()
+
+--- 文件路径: app\providers\__init__.py ---
+
+
+
+--- 文件路径: app\providers\base_provider.py ---
+
+from abc import ABC, abstractmethod
+from typing import Dict, Any
+from fastapi.responses import StreamingResponse, JSONResponse
+
+class BaseProvider(ABC):
+    @abstractmethod
+    async def chat_completion(self, request_data: Dict[str, Any]) -> StreamingResponse:
+        pass
+
+    @abstractmethod
+    async def get_models(self) -> JSONResponse:
+        pass
+
+--- 文件路径: app\providers\perplexity_provider.py ---
+
+import json
+import time
+import uuid
+import logging
+import httpx
+from typing import Dict, Any, AsyncGenerator
+from fastapi import HTTPException
+from fastapi.responses import StreamingResponse, JSONResponse
+from loguru import logger
+
+from app.core.config import settings
+from app.providers.base_provider import BaseProvider
+from app.services.browser_service import BrowserService
+from app.utils.sse_utils import create_sse_data, create_chat_completion_chunk, DONE_CHUNK
+
+class PerplexityProvider(BaseProvider):
+    def __init__(self):
+        self.solver = BrowserService()
+
+    async def chat_completion(self, request_data: Dict[str, Any]) -> StreamingResponse:
+        messages = request_data.get("messages", [])
+        if not messages:
+            raise HTTPException(status_code=400, detail="Messages cannot be empty")
+        
+        last_msg = next((m for m in reversed(messages) if m["role"] == "user"), None)
+        if not last_msg:
+            raise HTTPException(status_code=400, detail="No user message found")
+        
+        query = last_msg["content"]
+        model = request_data.get("model", settings.DEFAULT_MODEL)
+        request_id = f"req-{uuid.uuid4().hex[:8]}"
+
+        await self.solver.refresh_context()
+
+        payload = {
+            "params": {
+                "attachments": [],
+                "language": "zh-CN",
+                "timezone": "Asia/Shanghai",
+                "search_focus": "internet",
+                "sources": ["edgar", "social", "web", "scholar"],
+                "frontend_uuid": str(uuid.uuid4()),
+                "mode": "copilot",
+                "model_preference": model,
+                "is_related_query": False,
+                "is_sponsored": False,
+                "prompt_source": "user",
+                "query_source": "home",
+                "is_incognito": False,
+                "time_from_first_type": 1344.2,
+                "local_search_enabled": False,
+                "use_schematized_api": True,
+                "send_back_text_in_streaming_api": False,
+                "supported_block_use_cases": [
+                  "answer_modes", "media_items", "knowledge_cards", "inline_entity_cards", 
+                  "place_widgets", "finance_widgets", "prediction_market_widgets", "sports_widgets", 
+                  "flight_status_widgets", "news_widgets", "shopping_widgets", "jobs_widgets", 
+                  "search_result_widgets", "clarification_responses", "inline_images", "inline_assets", 
+                  "placeholder_cards", "diff_blocks", "inline_knowledge_cards", "entity_group_v2", 
+                  "refinement_filters", "canvas_mode", "maps_preview", "answer_tabs", 
+                  "price_comparison_widgets", "preserve_latex"
+                ],
+                "client_coordinates": None,
+                "mentions": [],
+                "skip_search_enabled": True,
+                "is_nav_suggestions_disabled": False,
+                "always_search_override": False,
+                "override_no_search": False,
+                "should_ask_for_mcp_tool_confirmation": True,
+                "supported_features": ["browser_agent_permission_banner"],
+                "version": "2.18"
+            },
+            "query_str": query
+        }
+
+        headers = self.solver.get_headers()
+        headers["x-request-id"] = request_id
+        cookies = self.solver.get_cookies()
+
+        logger.info(f"=== 发送请求 [{request_id}] ===")
+
+        async def stream_generator() -> AsyncGenerator[bytes, None]:
+            client = httpx.AsyncClient(timeout=300, http2=True)
+            try:
+                async with client.stream(
+                    "POST", 
+                    settings.API_URL, 
+                    json=payload, 
+                    headers=headers, 
+                    cookies=cookies
+                ) as response:
+                    
+                    if response.status_code != 200:
+                        error_text = await response.aread()
+                        logger.error(f"上游错误 {response.status_code}: {error_text.decode('utf-8', errors='ignore')}")
+                        if response.status_code == 403:
+                            await self.solver.refresh_context(force=True)
+                        yield create_sse_data(create_chat_completion_chunk(request_id, model, f"[Error: Upstream {response.status_code}]", "stop"))
+                        yield DONE_CHUNK
+                        return
+
+                    last_full_text = ""
+                    has_content = False
+                    
+                    async for line in response.aiter_lines():
+                        line_str = line.strip()
+                        if not line_str or not line_str.startswith("data: "): 
+                            continue
+                        
+                        json_str = line_str[6:].strip()
+                        if json_str == "[DONE]": continue
+                        
+                        try:
+                            data = json.loads(json_str)
+                            
+                            # --- 核心解析逻辑 ---
+                            current_full_text = ""
+
+                            # 1. 尝试从 answer 字段获取 (可能是嵌套 JSON)
+                            if "answer" in data:
+                                raw_answer = data["answer"]
+                                try:
+                                    # 检查是否是 JSON 数组字符串 (如你日志所示)
+                                    if isinstance(raw_answer, str) and raw_answer.strip().startswith("["):
+                                        steps = json.loads(raw_answer)
+                                        for step in steps:
+                                            step_type = step.get("step_type")
+                                            content = step.get("content", {})
+                                            
+                                            if step_type == "SEARCH_WEB":
+                                                queries = content.get("queries", [])
+                                                q_str = ", ".join([q["query"] for q in queries])
+                                                current_full_text += f"> 🔍 正在搜索: {q_str}\n\n"
+                                            
+                                            elif step_type == "SEARCH_RESULTS":
+                                                results = content.get("web_results", [])
+                                                if results:
+                                                    current_full_text += f"> 📚 找到 {len(results)} 个来源\n\n"
+
+                                            elif step_type == "FINAL":
+                                                # FINAL 里的 answer 可能又是 JSON 字符串
+                                                final_answer_raw = content.get("answer")
+                                                if isinstance(final_answer_raw, str):
+                                                    try:
+                                                        final_obj = json.loads(final_answer_raw)
+                                                        if "answer" in final_obj:
+                                                            current_full_text += final_obj["answer"]
+                                                    except:
+                                                        current_full_text += final_answer_raw
+                                                else:
+                                                    current_full_text += str(final_answer_raw)
+
+                                    # 检查是否是普通 JSON 对象字符串
+                                    elif isinstance(raw_answer, str) and raw_answer.strip().startswith("{"):
+                                        inner_data = json.loads(raw_answer)
+                                        if "answer" in inner_data:
+                                            current_full_text = inner_data["answer"]
+                                    else:
+                                        current_full_text = raw_answer
+                                except Exception as e:
+                                    # 解析失败，回退到原始值
+                                    current_full_text = raw_answer
+
+                            # 2. 尝试从 text 字段获取 (逻辑同上)
+                            elif "text" in data:
+                                raw_text = data["text"]
+                                try:
+                                    if isinstance(raw_text, str) and raw_text.strip().startswith("["):
+                                        # 处理数组情况 (同上)
+                                        steps = json.loads(raw_text)
+                                        for step in steps:
+                                            step_type = step.get("step_type")
+                                            content = step.get("content", {})
+                                            if step_type == "FINAL":
+                                                final_answer_raw = content.get("answer")
+                                                if isinstance(final_answer_raw, str):
+                                                    try:
+                                                        final_obj = json.loads(final_answer_raw)
+                                                        if "answer" in final_obj:
+                                                            current_full_text += final_obj["answer"]
+                                                    except:
+                                                        current_full_text += final_answer_raw
+                                    elif isinstance(raw_text, str) and raw_text.strip().startswith("{"):
+                                        inner_data = json.loads(raw_text)
+                                        if "answer" in inner_data:
+                                            current_full_text = inner_data["answer"]
+                                        elif "chunks" in inner_data:
+                                            current_full_text = "".join(inner_data["chunks"])
+                                    else:
+                                        current_full_text = raw_text
+                                except:
+                                    current_full_text = raw_text
+
+                            # --- 增量发送 ---
+                            if current_full_text:
+                                # 只有当新文本比旧文本长时才发送增量
+                                # 注意：Perplexity 有时会重写前面的文本，这里简化处理，只追加
+                                if len(current_full_text) > len(last_full_text):
+                                    delta_text = current_full_text[len(last_full_text):]
+                                    last_full_text = current_full_text
+                                    has_content = True
+                                    
+                                    chunk = create_chat_completion_chunk(request_id, model, delta_text)
+                                    yield create_sse_data(chunk)
+
+                        except Exception as e:
+                            logger.warning(f"解析失败: {e}")
+                            pass
+                    
+                    if not has_content:
+                        yield create_sse_data(create_chat_completion_chunk(request_id, model, "[Warning: No content returned]", "stop"))
+
+                    yield create_sse_data(create_chat_completion_chunk(request_id, model, "", "stop"))
+                    yield DONE_CHUNK
+
+            except Exception as e:
+                logger.error(f"流式请求异常: {e}")
+                yield create_sse_data(create_chat_completion_chunk(request_id, model, f"[Error: {str(e)}]", "stop"))
+                yield DONE_CHUNK
+            finally:
+                await client.aclose()
+
+        return StreamingResponse(stream_generator(), media_type="text/event-stream")
+
+    async def get_models(self) -> JSONResponse:
+        return JSONResponse(content={
+            "object": "list",
+            "data": [{"id": m, "object": "model", "created": int(time.time()), "owned_by": "perplexity"} for m in settings.MODELS]
+        })
+
+--- 文件路径: app\services\__init__.py ---
+
+
+
+--- 文件路径: app\services\browser_service.py ---
+
+import logging
+import asyncio
+import os
+import time
+import random
+import re
+from typing import Dict
+from playwright.async_api import async_playwright, Page
+from app.core.config import settings
+
+logger = logging.getLogger(__name__)
+
+class BrowserService:
+    def __init__(self):
+        self.cached_cookies: Dict[str, str] = {}
+        self.cached_user_agent: str = settings.PPLX_USER_AGENT
+        self.last_refresh_time = 0
+        self.refresh_interval = 300 # 5分钟内不重复刷新
+
+    async def initialize_session(self):
+        """初始化：解析 .env 中的 Cookie"""
+        logger.info("🚀 正在初始化浏览器服务...")
+        initial_cookies_list = settings.get_initial_cookies_dict()
+        self.cached_cookies = {c["name"]: c["value"] for c in initial_cookies_list}
+        
+        # 启动时尝试预热
+        try:
+            await self.refresh_context(force=True)
+        except Exception as e:
+            logger.error(f"❌ 初始预热失败: {e}")
+
+    async def _handle_cf_challenge(self, page: Page):
+        """
+        [核心逻辑] 专门处理 Cloudflare 盾牌 (无截图版)
+        """
+        try:
+            title = await page.title()
+            if "Just a moment" not in title and "Cloudflare" not in title:
+                return
+
+            logger.warning(f"🛡️ 检测到 Cloudflare 盾牌 (标题: {title})，正在尝试自动突破...")
+            
+            for i in range(10):
+                # 查找所有包含 challenges 的 iframe
+                frames = page.frames
+                challenge_frame = next((f for f in frames if "challenges" in f.url), None)
+
+                if challenge_frame:
+                    logger.info("⚔️ 发现验证框，正在模拟人工点击...")
+                    
+                    element = await page.query_selector("iframe[src*='challenges']")
+                    if element:
+                        box = await element.bounding_box()
+                        if box:
+                            x = box["x"] + (box["width"] / 2) + random.randint(-10, 10)
+                            y = box["y"] + (box["height"] / 2) + random.randint(-5, 5)
+
+                            await page.mouse.move(x, y, steps=random.randint(10, 20))
+                            await asyncio.sleep(random.uniform(0.2, 0.5))
+                            await page.mouse.down()
+                            await asyncio.sleep(random.uniform(0.05, 0.15))
+                            await page.mouse.up()
+                            
+                            logger.info("✅ 点击完成，等待跳转...")
+                            try:
+                                await page.wait_for_load_state("networkidle", timeout=15000)
+                            except:
+                                pass
+                            return
+                await asyncio.sleep(1)
+            
+            logger.warning("⚠️ 未找到验证框，尝试等待自动跳转...")
+
+        except Exception as e:
+            logger.error(f"❌ 处理盾牌时出错: {e}")
+
+    def _update_env_file(self, new_cookies: Dict[str, str]):
+        """
+        [持久化] 将最新的 Cookie 写回 .env 文件
+        """
+        try:
+            # 构造 Cookie 字符串
+            cookie_str = "; ".join([f"{k}={v}" for k, v in new_cookies.items()])
+            env_path = ".env" # 容器内路径，映射到宿主机
+            
+            if not os.path.exists(env_path):
+                return
+
+            with open(env_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            new_lines = []
+            updated = False
+            for line in lines:
+                if line.startswith("PPLX_COOKIE="):
+                    new_lines.append(f'PPLX_COOKIE="{cookie_str}"\n')
+                    updated = True
+                else:
+                    new_lines.append(line)
+            
+            if not updated:
+                new_lines.append(f'PPLX_COOKIE="{cookie_str}"\n')
+
+            with open(env_path, 'w', encoding='utf-8') as f:
+                f.writelines(new_lines)
+            
+            logger.info("💾 最新 Cookie 已自动保存到 .env 文件 (持久化成功)")
+            
+        except Exception as e:
+            logger.error(f"❌ 保存 Cookie 到文件失败: {e}")
+
+    async def refresh_context(self, force=False):
+        """
+        启动浏览器，访问页面，过盾，更新 Cookie
+        """
+        if not force and (time.time() - self.last_refresh_time < self.refresh_interval) and self.cached_cookies:
+            return True
+
+        logger.info("🔄 启动浏览器进行会话保活/续期...")
+        
+        async with async_playwright() as p:
+            # 移除 record_video_dir，不录屏
+            browser = await p.chromium.launch(
+                headless=True,
+                args=[
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-blink-features=AutomationControlled"
+                ]
+            )
+            
+            context = await browser.new_context(
+                user_agent=self.cached_user_agent,
+                viewport={"width": 1280, "height": 720}
+            )
+
+            if self.cached_cookies:
+                cookie_list = [
+                    {"name": k, "value": v, "url": "https://www.perplexity.ai"}
+                    for k, v in self.cached_cookies.items()
+                ]
+                try:
+                    await context.add_cookies(cookie_list)
+                except Exception:
+                    pass
+
+            page = await context.new_page()
+
+            try:
+                await page.goto(settings.TARGET_URL, wait_until="domcontentloaded", timeout=60000)
+                
+                # 处理盾牌
+                await self._handle_cf_challenge(page)
+
+                # 检查结果
+                title = await page.title()
+                if "Just a moment" in title or "Cloudflare" in title:
+                    logger.error("❌ 过盾失败，仍在盾牌页面。")
+                    return False
+
+                # 提取并更新 Cookie
+                cookies = await context.cookies()
+                new_cookies = {c["name"]: c["value"] for c in cookies}
+                
+                if "pplx.visitor-id" in new_cookies:
+                    self.cached_cookies = new_cookies
+                    self.last_refresh_time = time.time()
+                    logger.info(f"✅ Cookie 刷新成功! 数量: {len(self.cached_cookies)}")
+                    
+                    # [关键] 自动写回文件
+                    self._update_env_file(new_cookies)
+                    
+                    return True
+                else:
+                    logger.error("❌ 未找到关键 Cookie，可能验证未通过。")
+                    return False
+
+            except Exception as e:
+                logger.error(f"❌ 浏览器操作异常: {e}")
+                return False
+            finally:
+                await context.close()
+                await browser.close()
+
+    def get_headers(self) -> Dict[str, str]:
+        return {
+            "Host": "www.perplexity.ai",
+            "User-Agent": self.cached_user_agent,
+            "Accept": "text/event-stream",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Accept-Encoding": "gzip, deflate, br, zstd",
+            "Content-Type": "application/json",
+            "Origin": settings.TARGET_URL,
+            "Referer": f"{settings.TARGET_URL}/search/new",
+            "Priority": "u=1, i",
+            "sec-ch-ua": '"Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"',
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": '"Windows"',
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-perplexity-request-reason": "perplexity-query-state-provider"
+        }
+
+    def get_cookies(self) -> Dict[str, str]:
+        return self.cached_cookies
+
+--- 文件路径: app\services\turnstile_solver.py ---
+
+import logging
+import asyncio
+import random
+import os
+import time
+import math
+from playwright.async_api import async_playwright
+from app.core.config import settings
+
+logger = logging.getLogger(__name__)
+
+class TurnstileSolver:
+    async def _human_mouse_move(self, page, start_x, start_y, end_x, end_y):
+        """
+        模拟人类鼠标移动轨迹 (贝塞尔曲线 + 随机抖动 + 变速)
+        """
+        steps = random.randint(30, 60) # 步数增加，移动更平滑
+        for i in range(steps):
+            t = i / steps
+            # 贝塞尔曲线插值
+            x = start_x + (end_x - start_x) * t
+            y = start_y + (end_y - start_y) * t
+            
+            # 添加正弦波抖动 (模拟手抖)
+            x += random.uniform(-2, 2) * math.sin(t * math.pi)
+            y += random.uniform(-2, 2) * math.sin(t * math.pi)
+            
+            await page.mouse.move(x, y)
+            
+            # 变速移动：中间快，两头慢
+            sleep_time = random.uniform(0.001, 0.01)
+            if 0.2 < t < 0.8:
+                sleep_time /= 2
+            await asyncio.sleep(sleep_time)
+            
+        # 确保最后精准到达
+        await page.mouse.move(end_x, end_y)
+
+    async def _apply_stealth(self, page):
+        """注入隐身脚本，移除自动化特征"""
+        await page.add_init_script("""
+            Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+            window.chrome = { runtime: {} };
+            Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
+            Object.defineProperty(navigator, 'languages', { get: () => ['en-US', 'en'] });
+            const getParameter = WebGLRenderingContext.prototype.getParameter;
+            WebGLRenderingContext.prototype.getParameter = function(parameter) {
+                if (parameter === 37445) return 'Intel Inc.';
+                if (parameter === 37446) return 'Intel Iris OpenGL Engine';
+                return getParameter(parameter);
+            };
+        """)
+
+    async def get_token(self) -> str:
+        logger.info("启动 Playwright (完全拟人化模式)...")
+        token_future = asyncio.get_running_loop().create_future()
+        
+        os.makedirs("/app/debug", exist_ok=True)
+        timestamp = int(time.time())
+        debug_prefix = f"/app/debug/run_{timestamp}"
+
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(
+                headless=True, # 调试时建议保持 True，依赖截图查看
+                args=[
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-blink-features=AutomationControlled",
+                    "--window-size=1920,1080",
+                ]
+            )
+            
+            context = await browser.new_context(
+                viewport={"width": 1920, "height": 1080},
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                record_video_dir="/app/debug",
+                record_video_size={"width": 1280, "height": 720}
+            )
+            
+            page = await context.new_page()
+            await self._apply_stealth(page)
+
+            # --- 监听 Token ---
+            async def handle_request(request):
+                if "/api/web/generate-basic" in request.url and request.method == "POST":
+                    try:
+                        post_data = request.post_data_json
+                        if post_data and "turnstile_token" in post_data:
+                            token = post_data["turnstile_token"]
+                            logger.info(f"🔥🔥🔥 捕获 Token: {token[:20]}...")
+                            if not token_future.done():
+                                token_future.set_result(token)
+                    except:
+                        pass
+            page.on("request", handle_request)
+
+            try:
+                logger.info(f"访问: {settings.TARGET_URL}")
+                await page.goto(settings.TARGET_URL, wait_until="domcontentloaded", timeout=60000)
+
+                # 1. 输入 Prompt (保留原有逻辑)
+                try:
+                    logger.info("寻找输入框...")
+                    textarea = await page.wait_for_selector('textarea', state="visible", timeout=15000)
+                    
+                    # 拟人化点击输入框
+                    box = await textarea.bounding_box()
+                    if box:
+                        await self._human_mouse_move(page, 0, 0, box['x'] + box['width']/2, box['y'] + box['height']/2)
+                        await page.mouse.click(box['x'] + box['width']/2, box['y'] + box['height']/2)
+                    
+                    await asyncio.sleep(0.5)
+                    await page.keyboard.type("a cyberpunk cat", delay=random.randint(50, 150)) # 随机打字速度
+                    await asyncio.sleep(0.5)
+                except Exception as e:
+                    logger.warning(f"输入框操作异常: {e}")
+
+                # 2. 点击生成按钮 (保留原有逻辑)
+                try:
+                    logger.info("点击生成按钮...")
+                    btn = await page.wait_for_selector('button:has-text("Generate")', state="visible", timeout=5000)
+                    
+                    # 拟人化点击按钮
+                    box = await btn.bounding_box()
+                    if box:
+                        await self._human_mouse_move(page, 500, 500, box['x'] + box['width']/2, box['y'] + box['height']/2)
+                        await asyncio.sleep(0.2)
+                        await page.mouse.click(box['x'] + box['width']/2, box['y'] + box['height']/2)
+                    else:
+                        await btn.click()
+                except:
+                    logger.warning("未找到生成按钮")
+
+                # 3. 验证码处理 (核心升级：反应时间 + 悬停 + 物理点击)
+                logger.info("进入验证码处理流程...")
+                
+                start_time = time.time()
+                clicked = False
+                
+                while not token_future.done():
+                    if time.time() - start_time > 60:
+                        logger.error("验证超时")
+                        break
+                    
+                    # 检查是否有 Error
+                    if await page.get_by_text("Error").is_visible():
+                        logger.error("页面显示 Error，刷新重试...")
+                        await page.reload()
+                        clicked = False
+                        start_time = time.time()
+                        await asyncio.sleep(3)
+                        continue
+
+                    # 寻找 Cloudflare iframe 元素 (获取其在主页面的坐标)
+                    iframe_element = await page.query_selector("iframe[src*='challenges.cloudflare.com']")
+                    
+                    if iframe_element:
+                        box = await iframe_element.bounding_box()
+                        # 确保 iframe 已经渲染出尺寸
+                        if box and box['width'] > 0 and box['height'] > 0:
+                            if not clicked:
+                                logger.info(f"发现验证码 iframe，坐标: ({box['x']}, {box['y']})")
+                                await page.screenshot(path=f"{debug_prefix}_found.png")
+
+                                # --- 关键步骤 1: 反应时间 (Reaction Time) ---
+                                reaction_time = random.uniform(1.5, 3.0)
+                                logger.info(f"模拟人类反应时间: 发呆 {reaction_time:.2f} 秒...")
+                                await asyncio.sleep(reaction_time)
+
+                                # --- 关键步骤 2: 计算目标坐标 (左侧复选框位置 + 随机偏移) ---
+                                # Turnstile 宽约300，高约65。复选框在左边。
+                                target_x = box['x'] + 30 + random.uniform(-5, 5)
+                                target_y = box['y'] + (box['height'] / 2) + random.uniform(-5, 5)
+                                
+                                # --- 关键步骤 3: 拟人化移动 (Human Move) ---
+                                logger.info(f"移动鼠标至: ({target_x:.1f}, {target_y:.1f})")
+                                # 假设当前鼠标在屏幕中间附近，或者上一次点击的位置
+                                await self._human_mouse_move(page, 960, 540, target_x, target_y)
+
+                                # --- 关键步骤 4: 悬停 (Hover) ---
+                                hover_time = random.uniform(0.3, 0.8)
+                                logger.info(f"悬停确认: {hover_time:.2f} 秒...")
+                                await asyncio.sleep(hover_time)
+
+                                # --- 关键步骤 5: 物理点击 (Physical Click) ---
+                                logger.info("执行物理点击 (Down -> Sleep -> Up)...")
+                                await page.mouse.down()
+                                await asyncio.sleep(random.uniform(0.08, 0.15)) # 模拟按键时长
+                                await page.mouse.up()
+                                
+                                clicked = True
+                                logger.info("点击完成，等待验证通过...")
+                                await page.screenshot(path=f"{debug_prefix}_clicked.png")
+                                
+                            else:
+                                # 已经点过了，正在等待结果
+                                pass
+                        else:
+                            # iframe 存在但还没展开
+                            pass
+                    else:
+                        # 还没找到 iframe
+                        pass
+
+                    # 如果点击后 20 秒还没反应，重置状态重试
+                    if clicked and (time.time() - start_time) % 20 < 1:
+                         logger.info("等待过久，重置状态准备重试...")
+                         clicked = False
+
+                    await asyncio.sleep(1)
+
+                if token_future.done():
+                    return token_future.result()
+                return ""
+
+            except Exception as e:
+                logger.error(f"流程出错: {e}")
+                await page.screenshot(path=f"{debug_prefix}_error.png")
+                return ""
+            finally:
+                await context.close()
+                await browser.close()
+                try:
+                    video_files = [f for f in os.listdir("/app/debug") if f.endswith(".webm")]
+                    if video_files:
+                        latest = max([os.path.join("/app/debug", f) for f in video_files], key=os.path.getctime)
+                        os.rename(latest, f"{debug_prefix}_recording.webm")
+                except: pass
+
+--- 文件路径: app\utils\__init__.py ---
+
+
+
+--- 文件路径: app\utils\sse_utils.py ---
+
+import json
+import time
+from typing import Dict, Any, Optional
+
+DONE_CHUNK = b"data: [DONE]\n\n"
+
+def create_sse_data(data: Dict[str, Any]) -> bytes:
+    return f"data: {json.dumps(data, ensure_ascii=False)}\n\n".encode('utf-8')
+
+def create_chat_completion_chunk(request_id: str, model: str, content: str, finish_reason: Optional[str] = None) -> Dict[str, Any]:
+    return {
+        "id": request_id,
+        "object": "chat.completion.chunk",
+        "created": int(time.time()),
+        "model": model,
+        "choices": [{"index": 0, "delta": {"content": content}, "finish_reason": finish_reason}]
+    }
+
+--- 文件路径: static\index.html ---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perplexity-2API Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root { --bg: #111827; --panel: #1f2937; --text: #f3f4f6; --primary: #10b981; --user-msg: #374151; --ai-msg: #1f2937; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        .sidebar { width: 300px; background: var(--panel); padding: 20px; border-right: 1px solid #374151; display: flex; flex-direction: column; gap: 15px; }
+        .main { flex: 1; display: flex; flex-direction: column; padding: 0; position: relative; }
+        
+        h2 { margin: 0 0 10px 0; color: var(--primary); font-size: 1.2rem; }
+        label { font-size: 0.85rem; color: #9ca3af; margin-bottom: 4px; display: block; }
+        input, select, textarea { width: 100%; background: #111827; border: 1px solid #374151; color: white; padding: 10px; border-radius: 6px; box-sizing: border-box; font-family: inherit; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); outline: none; }
+        
+        button { background: var(--primary); color: #000; cursor: pointer; font-weight: bold; border: none; padding: 12px; border-radius: 6px; transition: opacity 0.2s; }
+        button:hover { opacity: 0.9; }
+        button:disabled { background: #4b5563; cursor: not-allowed; }
+
+        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; scroll-behavior: smooth; }
+        .msg { max-width: 80%; padding: 15px; border-radius: 12px; line-height: 1.6; position: relative; }
+        .user { background: var(--user-msg); align-self: flex-end; border-bottom-right-radius: 2px; }
+        .ai { background: var(--ai-msg); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #374151; }
+        
+        /* Markdown Styles */
+        .ai pre { background: #111827; padding: 10px; border-radius: 6px; overflow-x: auto; }
+        .ai code { font-family: monospace; background: #374151; padding: 2px 4px; border-radius: 4px; }
+        .ai pre code { background: transparent; padding: 0; }
+        .ai a { color: var(--primary); text-decoration: none; }
+        .ai a:hover { text-decoration: underline; }
+        .ai ul, .ai ol { padding-left: 20px; margin: 10px 0; }
+        .ai blockquote { border-left: 3px solid var(--primary); margin: 0; padding-left: 10px; color: #9ca3af; }
+
+        .status-bar { padding: 10px 20px; background: var(--panel); border-top: 1px solid #374151; font-size: 0.8rem; color: #9ca3af; display: flex; justify-content: space-between; }
+        .dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; display: inline-block; margin-right: 5px; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>🧠 Perplexity-2API</h2>
+        <div>
+            <label>API Key</label>
+            <input type="password" id="apiKey" value="1">
+        </div>
+        <div>
+            <label>模型 (Model)</label>
+            <select id="model">
+                <option value="gemini30pro">Gemini 3.0 Pro</option>
+                <option value="gpt-4o">GPT-4o</option>
+                <option value="sonar-reasoning-pro">Sonar Reasoning Pro</option>
+                <option value="claude-3-opus">Claude 3 Opus</option>
+            </select>
+        </div>
+        <div>
+            <label>提示词 (Prompt)</label>
+            <textarea id="prompt" rows="6" placeholder="输入您的问题...">Perplexity 是什么？</textarea>
+        </div>
+        <button id="sendBtn" onclick="send()">发送请求</button>
+    </div>
+
+    <div class="main">
+        <div id="chat-container">
+            <div class="msg ai">
+                👋 你好！我是 Perplexity 代理助手。请在左侧输入问题。
+            </div>
+        </div>
+        <div class="status-bar">
+            <div><span class="dot"></span>系统就绪</div>
+            <div id="connection-status">等待请求...</div>
+        </div>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const sendBtn = document.getElementById('sendBtn');
+        const statusDiv = document.getElementById('connection-status');
+
+        function appendMsg(role, text) {
+            const div = document.createElement('div');
+            div.className = `msg ${role}`;
+            div.innerHTML = role === 'ai' ? marked.parse(text) : text;
+            chatContainer.appendChild(div);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return div;
+        }
+
+        async function send() {
+            const prompt = document.getElementById('prompt').value.trim();
+            const key = document.getElementById('apiKey').value;
+            const model = document.getElementById('model').value;
+
+            if (!prompt) return;
+
+            // UI Update
+            appendMsg('user', prompt);
+            const aiMsgDiv = document.createElement('div');
+            aiMsgDiv.className = 'msg ai';
+            aiMsgDiv.innerHTML = '<span class="cursor">Thinking...</span>';
+            chatContainer.appendChild(aiMsgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            sendBtn.disabled = true;
+            statusDiv.textContent = "正在连接...";
+            
+            let fullText = "";
+
+            try {
+                const resp = await fetch('/v1/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+                    body: JSON.stringify({ model, messages: [{role: 'user', content: prompt}], stream: true })
+                });
+
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+                const reader = resp.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value, { stream: true });
+                    const lines = chunk.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data: ') && line !== 'data: [DONE]') {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+                                const delta = data.choices[0].delta.content;
+                                if (delta) {
+                                    fullText += delta;
+                                    // 实时渲染 Markdown
+                                    aiMsgDiv.innerHTML = marked.parse(fullText);
+                                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                                    statusDiv.textContent = "接收数据中...";
+                                }
+                            } catch(e) {}
+                        }
+                    }
+                }
+                statusDiv.textContent = "完成";
+
+            } catch (e) {
+                aiMsgDiv.innerHTML += `<br><br><strong style="color:#ef4444">❌ 错误: ${e.message}</strong>`;
+                statusDiv.textContent = "发生错误";
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
+
+--- 文件路径: static\script.js ---
+
+
+
+--- 文件路径: static\style.css ---
+
+
+
+
